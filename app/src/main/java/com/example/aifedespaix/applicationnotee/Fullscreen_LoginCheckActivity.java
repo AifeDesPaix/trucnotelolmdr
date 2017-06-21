@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 /**
@@ -18,6 +19,9 @@ public class Fullscreen_LoginCheckActivity extends AppCompatActivity {
 
     private Intent intentMainActivity;
     private Intent intentLoginError;
+    private Intent intentMain;
+
+    private Button button_goLogin;
 
     /**
      * Whether or not the system UI should be auto-hidden after
@@ -113,21 +117,34 @@ public class Fullscreen_LoginCheckActivity extends AppCompatActivity {
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
+        // go back
+        button_goLogin = (Button) findViewById(R.id.dummy_button);
+        button_goLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nav_loginError("Je t'aime lol");
+            }
+        });
 
+        // Login
         intentMainActivity = getIntent();
         String login = intentMainActivity.getStringExtra("login");
         String password = intentMainActivity.getStringExtra("password");
-        if(login.equals("coucou") && password.equals("yoyo")) {
-
+        if(
+                (login.equals("coucou") && password.equals("yoyo"))
+                || (login.equals("") && password.equals(""))
+                ) {
+            intentMain = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intentMain);
         } else {
-            nav_loginError();
+            nav_loginError("Identifiant ou Mot de passe incorrect");
         }
     }
 
-    private void nav_loginError() {
+    private void nav_loginError(String error) {
 
         intentLoginError = new Intent(getApplicationContext(), LoginActivity.class);
-        intentLoginError.putExtra("error", "Identifiant ou Mot de passe incorrect");
+        intentLoginError.putExtra("error", error);
 
         startActivity(intentLoginError);
     }

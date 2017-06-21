@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         String error = intentLoginCheck.getStringExtra("error");
         if(error != null) {
             textView_error.setText(error);
+            btn_login.setError(error);
         }
 
     }
