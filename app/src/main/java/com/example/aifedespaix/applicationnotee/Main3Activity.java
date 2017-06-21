@@ -31,8 +31,6 @@ public class Main3Activity extends AppCompatActivity {
             }
         });
 
-
-
         btnOk = (Button) findViewById(R.id.buttonOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
